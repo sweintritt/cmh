@@ -1,4 +1,4 @@
-// cmake helper (cmh) helps when building and installing libraries
+// cmake helper (cmh) helps building and installing libraries
 package main
 
 import (
