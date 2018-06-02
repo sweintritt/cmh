@@ -4,7 +4,7 @@
 
 ### Added
 
-* 
+* cmh now automatically uses the available number of cores when calling make
 
 ### Fixed
 
