@@ -220,7 +220,7 @@ func chdir(dir string) bool {
 func work(s *settings) {
 	result := prepare(s)
 
-	if result {
+	if result && !s.dry_run {
 		result = chdir(s.build_dir)
 	}
 
@@ -236,7 +236,7 @@ func work(s *settings) {
 		install(s)
 	}
 
-	if result {
+	if result && !s.dry_run {
 		os.Chdir(s.source_dir)
 	}
 
