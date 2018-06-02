@@ -5,6 +5,7 @@
 ### Added
 
 * cmh now automatically uses the available number of cores when calling make
+* The -a,--args option allows to pass additional arguments to the cmake call
 
 ### Fixed
 

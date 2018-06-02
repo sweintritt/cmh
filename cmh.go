@@ -22,6 +22,7 @@ type settings struct {
 	source_dir string
 	dry_run    bool
 	no_install bool
+	args       string
 }
 
 // create a new settings struct with default values
@@ -39,7 +40,8 @@ func newSettings() *settings {
 		prefix_dir: "~/install",
 		source_dir: dir,
 		dry_run:    false,
-		no_install: false}
+		no_install: false,
+		args:       ""}
 }
 
 // return true if the given path exists
@@ -141,12 +143,13 @@ func run(bin string, args ...string) error {
 
 // runs cmake with the given options
 func cmake(s *settings) bool {
-	options := make([]string, 5)
+	options := make([]string, 6)
 	options[0] = fmt.Sprintf("-DCMAKE_BUILD_TYPE=%s", buildStr(s.release))
 	options[1] = fmt.Sprintf("-DBUILD_SHARED_LIBS=%s", optStr(!s.static))
 	options[2] = fmt.Sprintf("-DCMAKE_INSTALL_PREFIX=%s", s.prefix_dir)
 	options[3] = fmt.Sprintf("-DCMAKE_PREFIX_PATH=%s", s.prefix_dir)
-	options[4] = fmt.Sprintf(s.source_dir)
+	options[4] = s.args
+	options[5] = fmt.Sprintf(s.source_dir)
 
 	if s.dry_run {
 		fmt.Println("cmake would have been called with this options:", options)
@@ -255,6 +258,8 @@ func main() {
 		return
 	}
 
+	flag.StringVar(&s.args, "a", s.args, "Pass additional arguments to the cmake call")
+	flag.StringVar(&s.args, "args", s.args, "Pass additional arguments to the cmake call")
 	flag.BoolVar(&s.release, "r", s.release, "Set CMAKE_BUILD_TYPE to 'Release'")
 	flag.BoolVar(&s.release, "release", s.release, "Set CMAKE_BUILD_TYPE to 'Release'")
 	flag.BoolVar(&s.static, "s", s.static, "Set BUILD_SHARED_LIBS to OFF")

@@ -12,6 +12,7 @@ Per default cmh will install into `~/install`.
 
 # Options
 
+* `-a`, `--args`: Pass additional arguments to the cmake call.
 * `-r`, `--release`: Set `CMAKE_BUILD_TYPE` to *Release*. Default is *Debug*.
 * `-s`, `--static`: Set `BUILD_SHARED_LIBS` to *ON*. Default is *OFF*.
 * `-d`, `--dry`: Just print what would happen, but don't do anything.
@@ -22,5 +23,6 @@ Per default cmh will install into `~/install`.
 An example using all options:
 
     $ cmh --static --release --dry --prefix="~/builds" --no-install
+    --args="-DBUILD_TESTS=OFF"
 
 
