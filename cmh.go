@@ -27,7 +27,7 @@ type settings struct {
 func newSettings() *settings {
 	dir, err := os.Getwd()
 	if err != nil {
-		fmt.Println(err.Error)
+		fmt.Println("unable to get current directory:", err.Error())
 		return nil
 	}
 
@@ -102,7 +102,7 @@ func prepare(s *settings) bool {
 		} else {
 			err := os.MkdirAll(s.build_dir, os.ModePerm)
 			if err != nil {
-				fmt.Println("unable for create", s.build_dir, ":", err.Error)
+				fmt.Println("unable for create", s.build_dir, ":", err.Error())
 				return false
 			}
 		}
@@ -117,7 +117,7 @@ func prepare(s *settings) bool {
 		} else {
 			err := os.MkdirAll(s.prefix_dir, os.ModePerm)
 			if err != nil {
-				fmt.Println("unable for create", s.prefix_dir, ":", err.Error)
+				fmt.Println("unable for create", s.prefix_dir, ":", err.Error())
 				return false
 			}
 		}
@@ -146,14 +146,13 @@ func cmake(s *settings) bool {
 	options[2] = fmt.Sprintf("-DCMAKE_INSTALL_PREFIX=%s", s.prefix_dir)
 	options[3] = fmt.Sprintf("-DCMAKE_PREFIX_PATH=%s", s.prefix_dir)
 	options[4] = fmt.Sprintf(s.source_dir)
-	// TODO Append additional parameters
 
 	if s.dry_run {
 		fmt.Println("cmake would have been called with this options:", options)
 	} else {
 		err := run("cmake", options...)
 		if err != nil {
-			fmt.Println("cmake failed:", err.Error)
+			fmt.Println("cmake failed:", err.Error())
 			return false
 		}
 	}
@@ -166,10 +165,9 @@ func build(s *settings) bool {
 	if s.dry_run {
 		fmt.Println("'make' would have been called in", s.build_dir)
 	} else {
-		// TODO determine number of cores
 		err := run("make", "-j2")
 		if err != nil {
-			fmt.Println("build failed:", err.Error)
+			fmt.Println("build failed:", err.Error())
 			return false
 		}
 	}
@@ -184,7 +182,7 @@ func install(s *settings) bool {
 	} else {
 		err := run("make", "install")
 		if err != nil {
-			fmt.Println("install failed:", err.Error)
+			fmt.Println("install failed:", err.Error())
 			return false
 		}
 	}
@@ -196,7 +194,7 @@ func install(s *settings) bool {
 func clean(s *settings) {
 	err := os.Chdir(s.source_dir)
 	if err != nil {
-		fmt.Println(err.Error)
+		fmt.Println(err.Error())
 	}
 
 	if s.dry_run {
@@ -211,7 +209,7 @@ func clean(s *settings) {
 func chdir(dir string) bool {
 	err := os.Chdir(dir)
 	if err != nil {
-		fmt.Println("unable to change directory:", err.Error)
+		fmt.Println("unable to change directory:", err.Error())
 		return false
 	}
 
