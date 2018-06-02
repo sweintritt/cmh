@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	"os/user"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"time"
 )
@@ -162,10 +163,12 @@ func cmake(s *settings) bool {
 
 // runs make
 func build(s *settings) bool {
+	cores := runtime.NumCPU()
+
 	if s.dry_run {
-		fmt.Println("'make' would have been called in", s.build_dir)
+		fmt.Printf("'make -j%d' would have been called in %s\n", cores, s.build_dir)
 	} else {
-		err := run("make", "-j2")
+		err := run("make", "-j"+string(cores))
 		if err != nil {
 			fmt.Println("build failed:", err.Error())
 			return false
