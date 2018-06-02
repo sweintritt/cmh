@@ -9,6 +9,7 @@ import (
 	"os/user"
 	"path/filepath"
 	"runtime"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -171,7 +172,7 @@ func build(s *settings) bool {
 	if s.dry_run {
 		fmt.Printf("'make -j%d' would have been called in %s\n", cores, s.build_dir)
 	} else {
-		err := run("make", "-j"+string(cores))
+		err := run("make", "-j"+strconv.Itoa(cores))
 		if err != nil {
 			fmt.Println("build failed:", err.Error())
 			return false
