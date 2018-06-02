@@ -97,7 +97,7 @@ func prepare(s *settings) bool {
 	} else {
 		r, _ := exists(s.build_dir)
 		if r {
-			fmt.Println(s.build_dir, "%s already exists. This shout not be happening...")
+			fmt.Println(s.build_dir, "already exists. This shout not be happening...")
 			return false
 		} else {
 			err := os.MkdirAll(s.build_dir, os.ModePerm)
