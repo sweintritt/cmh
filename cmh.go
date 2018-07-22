@@ -23,6 +23,7 @@ type settings struct {
 	source_dir string
 	dry_run    bool
 	no_install bool
+	verbose    bool
 	args       string
 }
 
@@ -42,6 +43,7 @@ func newSettings() *settings {
 		source_dir: dir,
 		dry_run:    false,
 		no_install: false,
+		verbose:    false,
 		args:       ""}
 }
 
@@ -131,11 +133,15 @@ func prepare(s *settings) bool {
 }
 
 // runs the given command with the given arguments
-func run(bin string, args ...string) error {
+func run(bin string, verbose bool, args ...string) error {
 	dir, _ := os.Getwd()
 	fmt.Println("calling:", bin, "with '", args, "' in", dir)
 	cmd := exec.Command(bin, args...)
-	cmd.Stdout = os.Stdout
+	if verbose {
+		cmd.Stdout = os.Stdout
+	} else {
+		cmd.Stdout = nil
+	}
 	cmd.Stderr = os.Stderr
 	err := cmd.Run()
 	cmd.Wait()
@@ -155,7 +161,7 @@ func cmake(s *settings) bool {
 	if s.dry_run {
 		fmt.Println("cmake would have been called with this options:", options)
 	} else {
-		err := run("cmake", options...)
+		err := run("cmake", s.verbose, options...)
 		if err != nil {
 			fmt.Println("cmake failed:", err.Error())
 			return false
@@ -172,7 +178,7 @@ func build(s *settings) bool {
 	if s.dry_run {
 		fmt.Printf("'make -j%d' would have been called in %s\n", cores, s.build_dir)
 	} else {
-		err := run("make", "-j"+strconv.Itoa(cores))
+		err := run("make", s.verbose, "-j"+strconv.Itoa(cores))
 		if err != nil {
 			fmt.Println("build failed:", err.Error())
 			return false
@@ -187,7 +193,7 @@ func install(s *settings) bool {
 	if s.dry_run {
 		fmt.Println("'make install' would have been called in", s.build_dir)
 	} else {
-		err := run("make", "install")
+		err := run("make", s.verbose, "install")
 		if err != nil {
 			fmt.Println("install failed:", err.Error())
 			return false
@@ -270,6 +276,8 @@ func main() {
 	flag.StringVar(&s.prefix_dir, "p", s.prefix_dir, "Used for CMAKE_PREFIX_PATH and CMAKE_INSTALL_PREFIX. Default is "+s.prefix_dir)
 	flag.StringVar(&s.prefix_dir, "prefix", s.prefix_dir, "Used for CMAKE_PREFIX_PATH and CMAKE_INSTALL_PREFIX. Default is "+s.prefix_dir)
 	flag.BoolVar(&s.no_install, "no-install", s.no_install, "Do not run 'make install' after build")
+	flag.BoolVar(&s.verbose, "v", s.verbose, "Show the output of the build")
+	flag.BoolVar(&s.verbose, "verbose", s.verbose, "Show the output of the build")
 	flag.Parse()
 
 	s.prefix_dir = absPath(s.prefix_dir)
