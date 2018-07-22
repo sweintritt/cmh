@@ -14,15 +14,17 @@ Per default cmh will install into `~/install`.
 
 * `-a`, `--args`: Pass additional arguments to the cmake call.
 * `-r`, `--release`: Set `CMAKE_BUILD_TYPE` to *Release*. Default is *Debug*.
-* `-s`, `--static`: Set `BUILD_SHARED_LIBS` to *ON*. Default is *OFF*.
+* `-s`, `--static`: Build static libraries by setting `BUILD_SHARED_LIBS` to *OFF*.
+  Default is *ON*.
 * `-d`, `--dry`: Just print what would happen, but don't do anything.
 * `-p`, `--prefix`: Set `CMAKE_PREFIX_PATH` and `CMAKE_INSTALL_PREFIX` to the given
   path. Default is `~/install`.
 * `--no-install`: Build the project, but skip the installation step.
+* `-v`, `--verbose`: Show output of the build.
 
 An example using all options:
 
     $ cmh --static --release --dry --prefix="~/builds" --no-install
-    --args="-DBUILD_TESTS=OFF"
+    --args="-DBUILD_TESTS=OFF" --verbose
 
 
