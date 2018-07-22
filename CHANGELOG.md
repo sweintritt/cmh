@@ -15,7 +15,7 @@
   skipped.
 * Exchanged err.Error with err.Error() in error messages.
 
-## [0.1.0] - 2017-05-25
+## [0.1.0] - 2018-05-25
 
 ### Added
 
