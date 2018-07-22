@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.2.0] - 2018-07-22
+
 ### Added
 
 * cmh now automatically uses the available number of cores when calling make
