@@ -27,4 +27,7 @@ An example using all options:
     $ cmh --static --release --dry --prefix="~/builds" --no-install
     --args="-DBUILD_TESTS=OFF" --verbose
 
+or using the short options
 
+    $ cmh -s -r -d -p="~/builds" --no-install
+    -a="-DBUILD_TESTS=OFF" -v
