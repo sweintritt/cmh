@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [1.0.0] - 2018-12-21
+
+* Nothing changed, added or fixed. I just wanted to call this version 1.0.0.
+
 ## [0.2.0] - 2018-07-22
 
 ### Added
