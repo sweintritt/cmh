@@ -21,6 +21,7 @@ Per default cmh will install into `~/install`.
   path. Default is `~/install`.
 * `--no-install`: Build the project, but skip the installation step.
 * `-v`, `--verbose`: Show output of the build.
+* `--version`: Show output of the build.
 
 An example using all options:
 

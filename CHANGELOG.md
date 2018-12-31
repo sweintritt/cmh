@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [1.1.0] - 2018-12-31
+
 ### Added
 
 * Added command line option to show version.
