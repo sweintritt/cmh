@@ -233,8 +233,17 @@ func chdir(dir string) bool {
 
 // run the complete build process
 func work(s *settings) {
-    // TODO check for CMakeLists.txt
-	result := prepare(s)
+    result := true
+	// TODO check for CMakeLists.txt
+	//
+	if _, err := os.Stat("CMakeLists.txt"); os.IsNotExist(err) {
+		fmt.Println("The current directory does not contain a CMakeLists.txt")
+		result = false
+	}
+
+    if result {
+    	result = prepare(s)
+    }
 
 	if result && !s.dry_run {
 		result = chdir(s.build_dir)
@@ -268,7 +277,7 @@ func main() {
 		return
 	}
 
-    showVersion := false
+	showVersion := false
 	flag.StringVar(&s.args, "a", s.args, "Pass additional arguments to the cmake call")
 	flag.StringVar(&s.args, "args", s.args, "Pass additional arguments to the cmake call")
 	flag.BoolVar(&s.release, "r", s.release, "Set CMAKE_BUILD_TYPE to 'Release'")
@@ -285,12 +294,12 @@ func main() {
 	flag.BoolVar(&showVersion, "version", showVersion, "Show the version of cmh")
 	flag.Parse()
 
-    if showVersion {
-        fmt.Println("cmh (cmake helper) "+version)
-        fmt.Println("Copyright (c) 2018 Stephan Weintritt")
-        fmt.Println("MIT License")
-    } else {
-    	s.prefix_dir = absPath(s.prefix_dir)
-    	work(s)
-    }
+	if showVersion {
+		fmt.Println("cmh (cmake helper) " + version)
+		fmt.Println("Copyright (c) 2018 Stephan Weintritt")
+		fmt.Println("MIT License")
+	} else {
+		s.prefix_dir = absPath(s.prefix_dir)
+		work(s)
+	}
 }

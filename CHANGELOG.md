@@ -6,6 +6,10 @@
 
 * Added command line option to show version.
 
+### Fixed
+
+* Check if the current directory contains a `CMakeLists.txt`.
+
 ## [1.0.0] - 2018-12-21
 
 * Nothing changed, added or fixed. I just wanted to call this version 1.0.0.
