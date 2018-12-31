@@ -268,6 +268,7 @@ func main() {
 		return
 	}
 
+    showVersion := false
 	flag.StringVar(&s.args, "a", s.args, "Pass additional arguments to the cmake call")
 	flag.StringVar(&s.args, "args", s.args, "Pass additional arguments to the cmake call")
 	flag.BoolVar(&s.release, "r", s.release, "Set CMAKE_BUILD_TYPE to 'Release'")
@@ -281,8 +282,15 @@ func main() {
 	flag.BoolVar(&s.no_install, "no-install", s.no_install, "Do not run 'make install' after build")
 	flag.BoolVar(&s.verbose, "v", s.verbose, "Show the output of the build")
 	flag.BoolVar(&s.verbose, "verbose", s.verbose, "Show the output of the build")
+	flag.BoolVar(&showVersion, "version", showVersion, "Show the version of cmh")
 	flag.Parse()
 
-	s.prefix_dir = absPath(s.prefix_dir)
-	work(s)
+    if showVersion {
+        fmt.Println("cmh (cmake helper) "+version)
+        fmt.Println("Copyright (c) 2018 Stephan Weintritt")
+        fmt.Println("MIT License")
+    } else {
+    	s.prefix_dir = absPath(s.prefix_dir)
+    	work(s)
+    }
 }
