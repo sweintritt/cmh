@@ -31,3 +31,23 @@ or using the short options
 
     $ cmh -s -r -d -p="~/builds" --no-install
     -a="-DBUILD_TESTS=OFF" -v
+
+# Build
+
+To build the binary you can use
+
+    $ go build -o cmh cmh.go
+
+or CMake
+
+    $ mkdir cmake-build
+    $ cd cmake-build
+    $ cmake ..
+    $ make cmh
+
+CMake also allows to build a installable package
+
+    $ make package
+
+this creates a Debian package by default. Set `CPACK_GENERATOR` to select
+a different generator.

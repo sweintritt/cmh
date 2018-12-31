@@ -14,6 +14,8 @@ import (
 	"time"
 )
 
+var version string = "1.1.0"
+
 // settings stores all available options and is passed to any funcion
 type settings struct {
 	static     bool
@@ -231,6 +233,7 @@ func chdir(dir string) bool {
 
 // run the complete build process
 func work(s *settings) {
+    // TODO check for CMakeLists.txt
 	result := prepare(s)
 
 	if result && !s.dry_run {
