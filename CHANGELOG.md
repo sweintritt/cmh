@@ -7,6 +7,7 @@
 ### Added
 
 * Added command line option to show version.
+* Added simple bash completion.
 
 ### Fixed
 
