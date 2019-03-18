@@ -2,9 +2,7 @@
 
 _cmh-completion() {
     COMPREPLY=()
-    if [ "${#COMP_WORDS[@]}" == "2" ]; then
-        COMPREPLY=( $( compgen -W "--args --dry --no-install --prefix --release --static --verbose --version" -- "${COMP_WORDS[COMP_CWORD]}" ))
-    fi
+    COMPREPLY=( $( compgen -W "--args --dry --no-install --prefix --release --static --verbose --version" -- "${COMP_WORDS[COMP_CWORD]}" ))
 
     return 0
 }

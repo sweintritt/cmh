@@ -20,8 +20,7 @@ add_custom_target(${PROJECT_NAME}
 include(GNUInstallDirs)
 install(PROGRAMS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
 # The slash is required, otherwise the script will be installed into /usr/etc/bash_completion.d
-# TODO Add bash completion
-# install(PROGRAMS ${PROJECT_NAME}-completion.bash DESTINATION /${CMAKE_INSTALL_SYSCONFDIR}/bash_completion.d/)
+install(PROGRAMS ${PROJECT_NAME}-completion.bash DESTINATION /${CMAKE_INSTALL_SYSCONFDIR}/bash_completion.d/)
 
 # Packaging
 include(InstallRequiredSystemLibraries)
